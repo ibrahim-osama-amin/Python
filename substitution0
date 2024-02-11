@@ -1,0 +1,37 @@
+# you can use online tools to decrypt this message, but I decided to write a python code to practice instead
+
+#Firstly, you define your alphabet, please take care of the special characters such as {}, they cause problems 
+
+alphabet = "ABCDEFGHIQKLMNOPJRSTUVWXYZabcdefghiqklmnopjrstuvwxyz{}_, "
+
+#Secondly, you define your key 
+key = "OHNFUMWSVZLXEGCPTAJDYIRKQBohnfumwsvzlxegcptajdyirkqb{}_, "
+
+#create a function to decrypt, it goes through each character of the string and replaces it with a character from the alphabet
+def decrypt(message):
+    result = ""
+    for char in message:
+        if char in key:
+            loc = key.find(char)
+            result += alphabet[loc]
+        else:
+            result += char #this to handle special characters such as {} _ , 
+    return result
+
+#notice here that for long strings you will need to include it between triple quotations """ long string """
+
+x = decrypt("""OHNFUMWSVZLXEGCPTAJDYIRKQB
+
+Suauypcg Xuwaogf oacju, rvds o waoiu ogf jdoduxq ova, ogf hacywsd eu dsu huudxu
+mace o wxojj noju vg rsvns vd roj ugnxcjuf. Vd roj o huoydvmyx jnoaohouyj, ogf, od
+dsod dveu, yglgcrg dc godyaoxvjdj~@~Tcm ncyaju o wauod pavbu vg o jnvugdvmvn pcvgd
+cm ivur. Dsuau ruau drc acygf hxonl jpcdj guoa cgu ukdauevdq cm dsu honl, ogf o
+xcgw cgu guoa dsu cdsua. Dsu jnoxuj ruau uknuufvgwxq soaf ogf wxcjjq, rvds oxx dsu
+oppuoaognu cm hyagvjsuf wcxf. Dsu ruvwsd cm dsu vgjund roj iuaq aueoalohxu, ogf,
+dolvgw oxx dsvgwj vgdc ncgjvfuaodvcg, V ncyxf soafxq hxoeu Zypvdua mca svj cpvgvcg
+aujpundvgw vd.
+
+Dsu mxow vj: pvncNDM{5YH5717Y710G_3I0XY710G_03055505}""")
+
+#Here I just print the text and the key
+print(x)
