@@ -1,4 +1,14 @@
-# you can use online tools to decrypt this message, but I decided to write a python code to practice instead
+##################################
+# Author: Ibrahim Osama 
+#
+# Date: 18/03/2023
+#
+# This script resolves PICO-CTF first challenge in Substitution Series https://play.picoctf.org/playlists/12?m=78
+#
+# Version: v1
+####################################
+
+# You can use online tools to decrypt this message, but I decided to write a python code to practice instead
 
 #Firstly, you define your alphabet, please take care of the special characters such as {}, they cause problems 
 
