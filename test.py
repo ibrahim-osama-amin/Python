@@ -1,1 +1,0 @@
-print ('kos om el bdan')
