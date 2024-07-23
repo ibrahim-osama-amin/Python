@@ -6,15 +6,16 @@ ec2_resource = boto3.resource("ec2", region_name="eu-central-1")
 
 
 def chec_instances_status():
-    statuses = ec2_client.describe_instance_status()
+    statuses = ec2_client.describe_instance_status(IncludeAllInstances=True)
     for status in statuses["InstanceStatuses"]:
         ins_status = status["InstanceStatus"]["Status"]
         sys_status = status["SystemStatus"]["Status"]
         state = status ["InstanceState"]["Name"]
-        print(f"Instance {status["InstanceId"]} is {state} with instance status {ins_status} and its system stats is {sys_status}")
+        print(f"Instance {status["InstanceId"]} is {state} with instance status {ins_status} and its system status is {sys_status}")
+    print ("#######################################################################################################################\n")
 
 
-schedule.every(5).minutes.do(chec_instances_status)
+schedule.every(5).seconds.do(chec_instances_status)
 
 while True:
     schedule.run_pending()
