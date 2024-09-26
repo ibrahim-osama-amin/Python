@@ -19,7 +19,7 @@
 
 import argparse
 import requests
-
+import sys
 
 parser = argparse.ArgumentParser(description="This script finds you the IP (ip_prefix) of an AWS service in a specific region")
 
@@ -30,14 +30,25 @@ arguments = parser.parse_args()
 REGION = arguments.Region
 SERVICE = arguments.Service
 
-response = requests.get(url="https://ip-ranges.amazonaws.com/ip-ranges.json")
-if response.status_code == 200:
+try:
+    response = requests.get(url="https://ip-ranges.amazonaws.com/ip-ranges.json", timeout=10)
+    response.raise_for_status()
     json_data = response.json()
-else:
-    print(f"Failed to retrieve data from AWS website https://ip-ranges.amazonaws.com/ip-ranges.json. Status code: {response.status_code}")
+except requests.exceptions.RequestException as e:
+    print(f"Error fetching data from AWS website https://ip-ranges.amazonaws.com/ip-ranges.json : {e}")
+    sys.exit(1)
+
+found = False
 
 for key in json_data:
     if key == "prefixes":
         for entry in json_data[key]:
             if entry["region"] == REGION and entry["service"] == SERVICE:
                 print(entry["ip_prefix"])
+                found = True
+
+if not found:
+    print(f"No IP prefix found for service '{SERVICE}' in region '{REGION}'.")
+
+
+
