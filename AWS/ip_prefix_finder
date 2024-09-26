@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+####################################################################################################################
+
+# Developed by iosama.amin@gmail.com                                                                               #  
+
+#                                                                                                                  #
+
+# Version 1                                                                                                        #
+
+#                                                                                                                  #
+
+# This script finds you the IP of an AWS service in a specific region                                              #
+
+#                                                                                                                  #
+
+#                                                                                                                  #
+
+####################################################################################################################
+
+import argparse
+import requests
+
+
+parser = argparse.ArgumentParser(description="This script finds you the IP (ip_prefix) of an AWS service in a specific region")
+
+parser.add_argument('-r', '--Region', help='Region name, for example: us-west-2', required=True)
+parser.add_argument('-s', '--Service', help='Service, for example: EBS, EC2_INSTANCE_CONNECT', required=True)
+
+arguments = parser.parse_args()
+REGION = arguments.Region
+SERVICE = arguments.Service
+
+response = requests.get(url="https://ip-ranges.amazonaws.com/ip-ranges.json")
+if response.status_code == 200:
+    json_data = response.json()
+else:
+    print(f"Failed to retrieve data from AWS website https://ip-ranges.amazonaws.com/ip-ranges.json. Status code: {response.status_code}")
+
+for key in json_data:
+    if key == "prefixes":
+        for entry in json_data[key]:
+            if entry["region"] == REGION and entry["service"] == SERVICE:
+                print(entry["ip_prefix"])
