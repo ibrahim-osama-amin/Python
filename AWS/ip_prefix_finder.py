@@ -46,8 +46,8 @@ for key in json_data:
 
 parser = argparse.ArgumentParser(description="This script finds you the IP (ip_prefix) of an AWS service in a specific region")
 
-parser.add_argument('-r', '--Region', help='Region name, for example: us-west-2, default: us-west-2', default='us-west-2',choices=region_choices)
-parser.add_argument('-s', '--Service', help='Service, for example: EBS, EC2_INSTANCE_CONNECT', required=True, choices=services_choices)
+parser.add_argument('-r', help='Region name, for example: us-west-2, default: us-west-2', default='us-west-2',choices=region_choices)
+parser.add_argument('-s', help='Service, for example: EBS, EC2_INSTANCE_CONNECT', required=True, choices=services_choices)
 
 arguments = parser.parse_args()
 REGION = arguments.Region
